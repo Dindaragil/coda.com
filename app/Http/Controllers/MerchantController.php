@@ -36,11 +36,11 @@ class MerchantController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id_user)
+    public function store(Request $request, $id)
     {
         $merchant = merchant::create($request->all());
-        $merchant->id_user = $this->user->id;
-        // $merchant->id_user = $request->id_user;
+        // $merchant->id_user = $this->user->id_user;
+        $merchant->id_user = $request->id_user;
         $merchant->nama = $request->nama;
         $merchant->alamat = $request->alamat;
         $merchant->save();

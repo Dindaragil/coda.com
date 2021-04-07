@@ -37,10 +37,10 @@ class UserController extends Controller
         $users->alamat = $request->alamat;
         $users->email = $request->email;
         $users->password = md5($request->password);
-        $users->type = $request->type;
+        $users->type = 'user';
         $users->save();
 
-        return redirect('/login')->with('status', 'Data anda telah disimpan');
+        return redirect('/user')->with('status', 'Successfully add a new user!');
     }
 
     /**
@@ -87,7 +87,7 @@ class UserController extends Controller
         $users->email = $request->email;
         $users->save();
 
-        return redirect('/user')->with('status', 'Successfully updated the category');
+        return redirect('/user')->with('status', 'Successfully updated the user!');
     }
 
     /**
@@ -109,17 +109,7 @@ class UserController extends Controller
     }
 
     //add user
-    public function add(Request $request){
-        $users = new User();
-        $users->nama_lengkap = $request->nama_lengkap;
-        $users->alamat = $request->alamat;
-        $users->email = $request->email;
-        $users->password = md5($request->password);
-        $users->type = 'user';
-        $users->save();
 
-        return redirect('/user')->with('status', 'Successfully add a new user!');
-    }
 
 
 }

@@ -12,49 +12,69 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4"></div>
-            <div class="col-md-4" style="margin-top: 30px;">
+            <div class="col-md-4" style="margin-top: 30px; margin-bottom: 30px">
                 <div class="card text-center">
                     <div class="card-header">
                         <h4>Register</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{url('/register_create')}}" method="post">
-                            {{ csrf_field() }}
+                        <form action="{{ route('register') }}" method="post">
+                            @csrf
+                            @if(session('errors'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            Something it's wrong:
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                            </ul>
+                        </div>
+                    @endif
                             <div class="mb-3">
                                 <label for="inputNamaLengkap" class="form-label">
                                     <h6>Full name</h6>
                                 </label>
-                                <input type="text" class="form-control" id="inputNamaLengkap" name="nama_lengkap" placeholder="Your Full Name">
+                                <input type="text" class="form-control" id="inputNamaLengkap" name="nama_lengkap" placeholder="Your Full Name" required>
                             </div>
                             <div class="mb-3">
                                 <label for="inputEmail" class="form-label">
                                     <h6>Email address</h6>
                                 </label>
-                                <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" name="email" placeholder="Your Email">
+                                <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" name="email" placeholder="Your Email" required>
                             </div>
                             <div class="mb-3">
                                 <label for="inputPassword" class="form-label">
                                     <h6>Password</h6>
                                 </label>
-                                <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Your Password">
+                                <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Your Password" required>
                             </div>
+                            <div class="mb-3">
+                        <label for="confirmPassword" class="form-label"><h6>Confirm Password</h6></label>
+                        <input type="password" name="password_confirmation" class="form-control" id="confirmPassword" placeholder=" Confirm your Password" required>
+                    </div>
                             <div class="mb-3">
                                 <label for="inputAlamat" class="form-label">
                                     <h6>Address</h6>
                                 </label>
-                                <input type="text" class="form-control" id="inputAlamat" name="alamat" placeholder="Your Address">
+                                <input type="text" class="form-control" id="inputAlamat" name="alamat" placeholder="Your Address" required>
                             </div>
-                            <select class="form-select form-select-lg mb-3" name="type">
+                            <div>
+                            <label class="form-label">  <h6>Role</h6>
+                                </label></div>
+                            <select class="form-select form-select-lg mb-3" name="type" required>
                                 <option selected>Register as</option>
                                 <option value="user">User</option>
                                 <option value="owner">Owner</option>
-                            </select> <br />
+                            </select> <br>
+
                             <button type="submit" class="btn btn-primary">Register</button>
                         </form>
-                        <div class="mt-3">
+                        <div class="mt-2">
                             <p>Already have account?</p>
-                            <a href="{{url('/login')}}" class="ml-2">Login</a>
-
+                            <a href="{{ route('login') }}" class="ml-2">Login</a>
                         </div>
                     </div>
                 </div>

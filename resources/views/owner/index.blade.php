@@ -21,6 +21,7 @@
                 <thead class="table-dark">
                     <tr>
                         <th>#</th>
+                        <th>ID</th>
                         <th>Full name</th>
                         <th>Email address</th>
                         <th>Address</th>
@@ -31,6 +32,7 @@
                 @foreach($owner as $ow)
                     <tr>
                     <td scope="row">{{$loop->iteration}}</td>
+                        <td>{{$ow->id }}</td>
                         <td>{{$ow->nama_lengkap }}</td>
                         <td>{{$ow->email }}</td>
                         <td>{{$ow->alamat }}</td>

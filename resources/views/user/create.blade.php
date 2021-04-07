@@ -15,7 +15,7 @@
         {{ session('status') }}
     </div>
 @endif
-        <form action="{{url('user/add')}}" method="post">
+        <form action="{{url('user/store')}}" method="post">
                         {{ csrf_field() }}
                         <div class="mb-3">
                                 <label for="inputNamaLengkap" class="form-label"><h6>Full name</h6></label>

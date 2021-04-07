@@ -20,31 +20,31 @@ use App\Http\Controllers\OwnerController;
 |
 */
 // home
-Route::get('/', [PagesController::class, 'home']);
+// Route::get('/', [PagesController::class, 'home']);
 
-//login
-Route::get('/login', [LoginController::class,'index']);
-Route::post('/login/cek', [LoginController::class,'cek_login']);
-Route::get('/logout', [LoginController::class,'logout']);
+// //login
+// Route::get('/login', [LoginController::class,'index']);
+// Route::post('/login/cek', [LoginController::class,'cek_login']);
+// Route::get('/logout', [LoginController::class,'logout']);
 
-//register
-Route::get('/register' , [RegisterController::class, 'index']);
-Route::post('/register_create', [UserController::class, 'store']);
+// //register
+// Route::get('/register' , [RegisterController::class, 'index']);
+// Route::post('/register_create', [UserController::class, 'store']);
 
 //owner
 Route::get('/owner' , [OwnerController::class, 'index']);
 Route::get('/owner/create', [OwnerController::class, 'create']);
 Route::post('/owner/store', [OwnerController::class, 'store']);
-Route::delete('user_destroy/{id}', [UserController::class, 'destroy']);
-Route::get('/owner_edit/{id}', [UserController::class, 'edit']);
-Route::put('/owner_update/{id}', [UserController::class, 'update']);
+Route::delete('owner_destroy/{id}', [OwnerController::class, 'destroy']);
+Route::get('/owner_edit/{id}', [OwnerController::class, 'edit']);
+Route::put('/owner_update/{id}', [OwnerController::class, 'update']);
 
 //merchant
 
 //user
 Route::get('/user' , [UserController::class, 'index']);
 Route::get('/user/create', [UserController::class, 'create']);
-Route::post('/user/add', [UserController::class, 'add']);
+Route::post('/user/store', [UserController::class, 'store']);
 Route::delete('user_destroy/{id}', [UserController::class, 'destroy']);
 Route::get('/user_edit/{id}', [UserController::class, 'edit']);
 Route::put('/user_update/{id}', [UserController::class, 'update']);
@@ -64,3 +64,17 @@ Route::post('/merchant/store/{id}', [MerchantController::class, 'store']);
 Route::delete('merchant_destroy/{id}', [MerchantController::class, 'destroy']);
 Route::get('/merchant_edit/{id}', [MerchantController::class, 'edit']);
 Route::put('/merchant_update/{id}', [MerchantController::class, 'update']);
+
+//auth
+Route::get('/', 'AuthController@showFormLogin')->name('login');
+Route::get('login', 'AuthController@showFormLogin')->name('login');
+Route::post('login', 'AuthController@login');
+Route::get('register', 'AuthController@showFormRegister')->name('register');
+Route::post('register', 'AuthController@register');
+
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::get('home', 'PagesController@index')->name('home');
+    Route::get('logout', 'AuthController@logout')->name('logout');
+
+});
