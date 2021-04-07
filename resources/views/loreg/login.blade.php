@@ -11,7 +11,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4"></div>
-            <div class="col-md-4" style="margin-top: 100px;">
+            <div class="col-md-4" style="margin-top: 80px;">
             @if (session('status'))
     <div class="alert alert-success">
         {{ session('status') }}

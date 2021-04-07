@@ -45,9 +45,10 @@
             <div class="ml-auto" id="navbarNavAltMarkup">
                 <div class="navbar-nav ">
                     <a class="nav-link" href="{{url('/')}}">Home</a>
-                    <a class="nav-link" href="{{url('/user')}}">User</a>
-                    <a class="nav-link" href="{{url('/merchant')}}">Merchant</a>
-                    <a class="nav-link" href="{{url('/kategori')}}">Kategori</a>
+                    <a class="nav-link" href="{{url('/user')}}">Users</a>
+                    <a class="nav-link" href="{{url('/owner')}}">Owners</a>
+                    <a class="nav-link" href="{{url('/kategori')}}">Categories</a>
+                    <a class="nav-link" href="{{url('/merchant')}}">Merchants</a>
                 </div>
             </div>
         </div>

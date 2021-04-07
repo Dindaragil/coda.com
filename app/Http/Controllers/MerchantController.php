@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
 use App\merchant;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MerchantController extends Controller
 {
 
     public function index()
     {
-        $merchant = merchant::all();
+        $merchant = DB::table('merchant')
+                    ->select('merchant.id', 'merchant.nama', 'merchant.alamat', 'users.nama_lengkap')
+                    ->join('users', 'users.id', '=', 'merchant.id_user')
+                    ->get();
         return view('merchant.index', compact('merchant'));
     }
 
@@ -20,9 +24,10 @@ class MerchantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        return view('merchant.create');
+        $merchant = User::where('id', $id)->get();
+        return view('merchant.create', compact('merchant'));
     }
 
     /**
@@ -31,9 +36,14 @@ class MerchantController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id_user)
     {
-        merchant::create($request->all());
+        $merchant = merchant::create($request->all());
+        $merchant->id_user = $this->user->id;
+        // $merchant->id_user = $request->id_user;
+        $merchant->nama = $request->nama;
+        $merchant->alamat = $request->alamat;
+        $merchant->save();
         return redirect('/merchant')->with('status', 'Successfully create a new merchant!');
     }
 

@@ -11,8 +11,13 @@
             <h2>Add New Merchant</h2>
         </div>
 
-        <form method="post" action="{{url('merchant/store')}}">
+        @foreach( $merchant as $mc )
+        <form method="post" action="{{url('merchant/store', $mc->id)}}">
         {{ csrf_field() }}
+        <!-- <label class="form-label h6">Owner's ID</label>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="owner's id" name="id_user" >
+        </div> -->
         <label class="form-label h6">Name</label>
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="merchant name" name="nama">
@@ -24,6 +29,7 @@
 
             <button type="submit" class="btn btn-success">Submit</button>
         </form>
+        @endforeach
     </div>
 
 </div>

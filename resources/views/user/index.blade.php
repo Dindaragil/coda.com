@@ -58,7 +58,6 @@
                 <thead class="table-dark">
                     <tr>
                         <th>#</th>
-                        <th>ID</th>
                         <th>Full name</th>
                         <th>Email address</th>
                         <th>Address</th>
@@ -69,10 +68,9 @@
                 @foreach($users as $us)
                     <tr>
                     <td scope="row">{{$loop->iteration}}</td>
-                        <td>{{$us->id }}</td>
                         <td>{{$us->nama_lengkap }}</td>
-                        <td>{{$us->email }}</td>
-                        <td>{{$us->alamat }}</td>
+                        <td>{{$us->email}}</td>
+                        <td>{{$us->alamat}}</td>
                         <td>
                         <form action="{{ url('user_destroy', $us->id )}}" method="post">
                     {{ csrf_field() }}

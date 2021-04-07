@@ -10,20 +10,19 @@
             <div class="col-xs-6">
                 <h2>Merchants</h2>
             </div>
-            <div class="ml-auto mb-2">
-                <a href="/merchant/create" class="btn btn-success">Add New</a>
-            </div>
+
             @if (session('status'))
     <div class="alert alert-success">
         {{ session('status') }}
     </div>
 @endif
-            <table class="table table-striped">
+            <table class="table table-striped mt-3">
                 <thead class="table-dark">
                     <tr>
                         <th>#</th>
                         <th>Name</th>
                         <th>Address</th>
+                        <th>Owner</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -33,6 +32,7 @@
                     <td scope="row">{{$loop->iteration}}</td>
                         <td>{{$mc->nama}}</td>
                         <td>{{$mc->alamat}}</td>
+                        <td>{{$mc->nama_lengkap}}</td>
                         <td>
                             <form action="{{ url('merchant_destroy', $mc->id )}}" method="post">
                     {{ csrf_field() }}

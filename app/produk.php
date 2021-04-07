@@ -7,18 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class produk extends Model
 {
     protected $table = 'produk';
-
-
-    /**
-     * Indicates if the IDs are auto-incrementing.
-     *
-     * @var bool
-     */
     public $incrementing = false;
+    protected $primary_key = 'id';
 
-    /**
-     * Indicates if the IDs are auto-incrementing.
-     *
-     * @var array
-     */
+
+
 }

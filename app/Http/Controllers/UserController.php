@@ -29,12 +29,7 @@ class UserController extends Controller
         return view('user.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+   //register
     public function store(Request $request)
     {
         $users = new User();
@@ -42,7 +37,7 @@ class UserController extends Controller
         $users->alamat = $request->alamat;
         $users->email = $request->email;
         $users->password = md5($request->password);
-        $users->type = 'user';
+        $users->type = $request->type;
         $users->save();
 
         return redirect('/login')->with('status', 'Data anda telah disimpan');
@@ -113,6 +108,7 @@ class UserController extends Controller
         return redirect('/user')->with('status', 'ID Not Found!');
     }
 
+    //add user
     public function add(Request $request){
         $users = new User();
         $users->nama_lengkap = $request->nama_lengkap;
@@ -124,4 +120,6 @@ class UserController extends Controller
 
         return redirect('/user')->with('status', 'Successfully add a new user!');
     }
+
+
 }

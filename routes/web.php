@@ -7,6 +7,7 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\OwnerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,31 +19,27 @@ use App\Http\Controllers\LoginController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//home
-// Route::get('/', [PagesController::class, 'home']);
+// home
+Route::get('/', [PagesController::class, 'home']);
 
-// //login
-// Route::get('/login', [LoginController::class,'index']);
-// Route::post('/login/cek', [LoginController::class,'cek_login']);
-// Route::get('/logout', [LoginController::class,'logout']);
+//login
+Route::get('/login', [LoginController::class,'index']);
+Route::post('/login/cek', [LoginController::class,'cek_login']);
+Route::get('/logout', [LoginController::class,'logout']);
 
-// //register
-// Route::get('/register' , [RegisterController::class, 'index']);
-// Route::post('/register_create', [UserController::class, 'store']);
+//register
+Route::get('/register' , [RegisterController::class, 'index']);
+Route::post('/register_create', [UserController::class, 'store']);
 
-//auth
-Route::get('/', 'AuthController@showFormLogin')->name('login');
-Route::get('login', 'AuthController@showFormLogin')->name('login');
-Route::post('login', 'AuthController@login');
-Route::get('register', 'AuthController@showFormRegister')->name('register');
-Route::post('register', 'AuthController@register');
+//owner
+Route::get('/owner' , [OwnerController::class, 'index']);
+Route::get('/owner/create', [OwnerController::class, 'create']);
+Route::post('/owner/store', [OwnerController::class, 'store']);
+Route::delete('user_destroy/{id}', [UserController::class, 'destroy']);
+Route::get('/owner_edit/{id}', [UserController::class, 'edit']);
+Route::put('/owner_update/{id}', [UserController::class, 'update']);
 
-Route::group(['middleware' => 'auth'], function () {
-
-    Route::get('home', [PagesController::class, 'home']);
-    Route::get('logout', 'AuthController@logout')->name('logout');
-
-});
+//merchant
 
 //user
 Route::get('/user' , [UserController::class, 'index']);
@@ -62,8 +59,8 @@ Route::put('/kategori_update/{id}', [KategoriController::class, 'update']);
 
 //merchant
 Route::get('/merchant', [MerchantController::class, 'index']);
-Route::get('/merchant/create', [MerchantController::class, 'create']);
-Route::post('/merchant/store', [MerchantController::class, 'store']);
+Route::get('/merchant_create/{id}', [MerchantController::class, 'create']);
+Route::post('/merchant/store/{id}', [MerchantController::class, 'store']);
 Route::delete('merchant_destroy/{id}', [MerchantController::class, 'destroy']);
 Route::get('/merchant_edit/{id}', [MerchantController::class, 'edit']);
 Route::put('/merchant_update/{id}', [MerchantController::class, 'update']);
