@@ -80,7 +80,8 @@ class MerchantController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'nama' => 'required'
+            'nama' => 'required',
+            'alamat' => 'requiered'
         ]);
 
         $merchant = merchant::where('id', $id)->first();

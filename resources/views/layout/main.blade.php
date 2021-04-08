@@ -44,11 +44,15 @@
             </button>
             <div class="ml-auto" id="navbarNavAltMarkup">
                 <div class="navbar-nav ">
-                    <a class="nav-link" href="{{url('/')}}">Home</a>
+                    <a class="nav-link" href="{{url('/home')}}">Home</a>
                     <a class="nav-link" href="{{url('/user')}}">Users</a>
                     <a class="nav-link" href="{{url('/owner')}}">Owners</a>
                     <a class="nav-link" href="{{url('/kategori')}}">Categories</a>
                     <a class="nav-link" href="{{url('/merchant')}}">Merchants</a>
+                    <a class="nav-link" href="{{url('/produk')}}">Products</a>
+                    <a class="nav-link" href="{{url('/logout')}}">Logout</a>
+
+
                 </div>
             </div>
         </div>

@@ -5,9 +5,8 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\MerchantController;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OwnerController;
+use App\Http\Controllers\ProdukController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +19,7 @@ use App\Http\Controllers\OwnerController;
 |
 */
 // home
-// Route::get('/', [PagesController::class, 'home']);
+// Route::get('/home', [PagesController::class, 'home']);
 
 // //login
 // Route::get('/login', [LoginController::class,'index']);
@@ -30,6 +29,20 @@ use App\Http\Controllers\OwnerController;
 // //register
 // Route::get('/register' , [RegisterController::class, 'index']);
 // Route::post('/register_create', [UserController::class, 'store']);
+
+//auth
+Route::get('/', 'AuthController@showFormLogin')->name('login');
+Route::get('login', 'AuthController@showFormLogin')->name('login');
+Route::post('login', 'AuthController@login');
+Route::get('register', 'AuthController@showFormRegister')->name('register');
+Route::post('register', 'AuthController@register');
+
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::get('home', 'PagesController@home')->name('home');
+    Route::get('logout', 'AuthController@logout')->name('logout');
+
+});
 
 //owner
 Route::get('/owner' , [OwnerController::class, 'index']);
@@ -65,16 +78,6 @@ Route::delete('merchant_destroy/{id}', [MerchantController::class, 'destroy']);
 Route::get('/merchant_edit/{id}', [MerchantController::class, 'edit']);
 Route::put('/merchant_update/{id}', [MerchantController::class, 'update']);
 
-//auth
-Route::get('/', 'AuthController@showFormLogin')->name('login');
-Route::get('login', 'AuthController@showFormLogin')->name('login');
-Route::post('login', 'AuthController@login');
-Route::get('register', 'AuthController@showFormRegister')->name('register');
-Route::post('register', 'AuthController@register');
+//produk
+Route::get('/produk', [ProdukController::class, 'index']);
 
-Route::group(['middleware' => 'auth'], function () {
-
-    Route::get('home', 'PagesController@index')->name('home');
-    Route::get('logout', 'AuthController@logout')->name('logout');
-
-});

@@ -45,17 +45,14 @@ class AuthController extends Controller
         ];
 
         Auth::attempt($data);
-
         if (Auth::check()) {
             return redirect()->route('home');
         } else {
-
             Session::flash('error', 'Invalid Email or Password');
             return redirect()->route('login');
-
         }
 
-        
+
     }
 
     public function showFormRegister()
