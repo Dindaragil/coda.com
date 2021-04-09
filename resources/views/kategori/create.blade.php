@@ -11,8 +11,8 @@
             <h2>Add New Category</h2>
         </div>
 
-        <form method="post" action="{{url('kategori/store')}}">
-        {{ csrf_field() }}
+        <form method="post" action="{{url('kategori_store')}}">
+            {{ csrf_field() }}
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Create a new one please" name="nama">
             </div>

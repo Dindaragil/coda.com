@@ -23,7 +23,6 @@ class ProdukController extends Controller
                   ->join('kategori', 'kategori.id', '=', 'produk.id_kategori')
                   ->join('merchant', 'merchant.id', '=', 'produk.id_merchant')
                   ->get();
-
         return view('produk.index', compact('produk'));
     }
 
@@ -32,10 +31,9 @@ class ProdukController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create()
     {
-        $produk = produk::where('id', $id)->get();
-        return view('produk.create', compact('produk'));
+        return view('produk.create');
     }
 
     /**
@@ -46,31 +44,49 @@ class ProdukController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->gambar);
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
             'deskripsi' => 'required',
             'stok' => 'required',
             'harga' => 'required',
             'id_kategori' => 'required',
-            'id_merchant' => 'required'
+            'id_merchant' => 'required',
+            'gambar' => 'required|mimes:jpeg, jpg, png, svg'
         ]);
 
-        if($validator->fails()){
-            return redirect()->back()->withErrors($validator)->withInput($request->all);
-        }
+        // // if($validator->fails()){
+        // //     return redirect()->back()->withErrors($validator)->withInput($request->all);
+        // // }
 
-        $gambar = rand().$request->file('gambar')->getClientOriginalName();
-        $request->file('gambar')->move(base_path("./public/Assets"), $gambar);
+        // $produk = produk::create($request->all());
+        // $produk->id_merchant = $request->id_merchant;
+        // $produk->nama = $request->nama;
+        // $produk->deskripsi = $request->deskripsi;
+        // $produk->stok = $request->stok;
+        // $produk->harga = $request->harga;
+        // $produk->id_kategori = $request->id_kategori;
 
-        $produk = produk::create($request->all());
-        $produk->nama = $request->nama;
-        $produk->deskripsi = $request->deskripsi;
-        $produk->stok = $request->stok;
-        $produk->harga = $request->harga;
-        $produk->id_kategori = $request->id_kategori;
-        $produk->id_merchant = $request->id_merchant;
-        $produk->save();
+
+        // $produk->save();
+
+
+        $foto = $request->gambar->getClientOriginalName() . '-' . time()
+         . '.' . $request->gambar->extension();
+        $request->gambar->move(public_path('image'), $foto);
+
+        produk::create([
+            'id_merchant' => $request->id_merchant,
+            'id_kategori' => $request->id_kategori,
+            'nama' => $request->nama,
+            'deskripsi' => $request->deskripsi,
+            'stok' => $request->stok,
+            'harga' => $request->harga,
+            'gambar' => $foto
+        ]);
         return redirect('/produk')->with('status', 'Successfully create a new product!');
+
+
     }
 
     /**
@@ -107,27 +123,36 @@ class ProdukController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
-            'deskripsi' => 'required',
             'stok' => 'required',
             'harga' => 'required',
 
         ]);
 
-        if($validator->fails()){
-            return redirect()->back()->withErrors($validator)->withInput($request->all);
+        // if($validator->fails()){
+        //     return redirect()->back()->withErrors($validator)->withInput($request->all);
+        // }
+
+        $foto = null;
+
+        if($request->gambar) {
+            $foto = $request->gambar->getClientOriginalName() . '-' . time()
+            . '.' . $request->gambar->extension();
+           $request->gambar->move(public_path('image'), $foto);
         }
 
-        $gambar = rand().$request->file('gambar')->getClientOriginalName();
-        $request->file('gambar')->move(base_path("./public/Assets"), $gambar);
 
-        $produk = produk::create($request->all());
-        $produk->nama = $request->nama;
-        $produk->deskripsi = $request->deskripsi;
-        $produk->stok = $request->stok;
-        $produk->harga = $request->harga;
+       produk::find($id)->update([
+           'id_merchant' => $request->id_merchant,
+           'id_kategori' => $request->id_kategori,
+           'nama' => $request->nama,
+           'deskripsi' => $request->deskripsi,
+           'stok' => $request->stok,
+           'harga' => $request->harga,
+           'gambar' => $foto
+       ]);
+       return redirect('/produk')->with('status', 'Successfully updated the product!');
 
-        $produk->save();
-        return redirect('/produk')->with('status', 'Successfully create a new product!');
+
     }
 
     /**
@@ -143,7 +168,7 @@ class ProdukController extends Controller
         if($produk != null){
             $produk->delete();
 
-            return redirect('/produk')->with('status', 'Successfully deleted the category!');
+            return redirect('/produk')->with('status', 'Successfully deleted the product!');
         }
         return redirect('/produk')->with('status', 'ID Not Found!');
     }

@@ -36,9 +36,9 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 60px;">
         <div class="container">
-            <a class="navbar-brand" href="#">coda.com</a>
+            <a class="navbar-brand" href="#"><img src="{{url('../logo/codalogo.jpg')}}" style="height: 60px;"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -50,7 +50,8 @@
                     <a class="nav-link" href="{{url('/kategori')}}">Categories</a>
                     <a class="nav-link" href="{{url('/merchant')}}">Merchants</a>
                     <a class="nav-link" href="{{url('/produk')}}">Products</a>
-                    <a class="nav-link" href="{{url('/logout')}}">Logout</a>
+                    <a class="nav-link" href="{{url('/logout')}}" onclick="return confirm('Are you Sure?')">Logout</a>
+
 
 
                 </div>

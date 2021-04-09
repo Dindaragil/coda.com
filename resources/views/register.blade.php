@@ -21,18 +21,18 @@
                         <form action="{{ route('register') }}" method="post">
                             @csrf
                             @if(session('errors'))
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            Something it's wrong:
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                            <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                            </ul>
-                        </div>
-                    @endif
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                Something it's wrong:
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
                             <div class="mb-3">
                                 <label for="inputNamaLengkap" class="form-label">
                                     <h6>Full name</h6>
@@ -52,9 +52,11 @@
                                 <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Your Password" required>
                             </div>
                             <div class="mb-3">
-                        <label for="confirmPassword" class="form-label"><h6>Confirm Password</h6></label>
-                        <input type="password" name="password_confirmation" class="form-control" id="confirmPassword" placeholder=" Confirm your Password" required>
-                    </div>
+                                <label for="confirmPassword" class="form-label">
+                                    <h6>Confirm Password</h6>
+                                </label>
+                                <input type="password" name="password_confirmation" class="form-control" id="confirmPassword" placeholder=" Confirm your Password" required>
+                            </div>
                             <div class="mb-3">
                                 <label for="inputAlamat" class="form-label">
                                     <h6>Address</h6>
@@ -62,8 +64,10 @@
                                 <input type="text" class="form-control" id="inputAlamat" name="alamat" placeholder="Your Address" required>
                             </div>
                             <div>
-                            <label class="form-label">  <h6>Role</h6>
-                                </label></div>
+                                <label class="form-label">
+                                    <h6>Role</h6>
+                                </label>
+                            </div>
                             <select class="form-select form-select-lg mb-3" name="type" required>
                                 <option selected>Register as</option>
                                 <option value="user">User</option>

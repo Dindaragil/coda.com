@@ -6,6 +6,7 @@ use App\merchant;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class MerchantController extends Controller
 {
@@ -38,6 +39,16 @@ class MerchantController extends Controller
      */
     public function store(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'id_user' => 'required',
+            'nama' => 'required',
+            'alamat' => 'required',
+            
+        ]);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput($request->all);
+        }
         $merchant = merchant::create($request->all());
         // $merchant->id_user = $this->user->id_user;
         $merchant->id_user = $request->id_user;
@@ -55,7 +66,6 @@ class MerchantController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**
