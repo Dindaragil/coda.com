@@ -6,7 +6,7 @@
 
 
 <div class="container">
-    <div style="margin-top: 75px;">
+    <div style="margin-top: 75px; margin-bottom: 75px;">
         <div class="col-xs-6 mb-4">
             <h2>Add New User</h2>
         </div>

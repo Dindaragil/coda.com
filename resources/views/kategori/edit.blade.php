@@ -6,7 +6,7 @@
 
 
 <div class="container">
-    <div style="margin-top: 75px;">
+    <div style="margin-top: 75px; margin-bottom: 75px;">
         <div class="col-xs-6 ">
             <h2>Change Category</h2>
         </div>
@@ -18,7 +18,7 @@
                 <input type="text" class="form-control " placeholder="Create a new one please" name="nama" value="{{$kg->nama}}">
             </div>
 
-            <button type="submit" class="btn btn-success">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
         @endforeach
     </div>

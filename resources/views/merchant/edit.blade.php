@@ -6,7 +6,7 @@
 
 
 <div class="container">
-    <div style="margin-top: 75px;">
+    <div style="margin-top: 75px; margin-bottom: 75px;">
         <div class="col-xs-6 ">
             <h2>Update Merchant</h2>
         </div>
@@ -22,7 +22,7 @@
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="merchant address" name="alamat" value="{{$mc->alamat}}">
             </div>
-            <button type="submit" class="btn btn-success">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
         @endforeach
     </div>

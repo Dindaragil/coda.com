@@ -2,31 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use Session;
 use Illuminate\Http\Request;
+use App\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
     public function index(){
-        return view('loreg.login');
+        return view('auth.login');
     }
-
     public function cek_login(Request $req){
         $this->validate($req, [
-            'email'=>'required',
+            'email' => 'required',
             'password' => 'required'
         ]);
 
-        $proses=User::where('email', $req->email)->where('password', md5($req->password));
+        $proses = User::where('email', $req->email)
+                      ->where('password', md5($req->password));
 
         if($proses->count()>0){
-            $proses->first();
-            $proses->session()->all();
-            return redirect('/home');
+            $data=$proses->first();
+            Session::put('id', $data->id);
+            Session::put('nama_lengkap', $data->nama_lengkap);
+            Session::put('email', $data->email);
+            Session::put('password', $data->password);
+            Session::put('type', $data->type);
+            Session::put('login_status', true);
+            return redirect('/home')->with('alert_message', 'berhasil mengubah data');
         } else {
-            $proses->session()->flash('status', 'Task was successful!');
-             return redirect(('login'));
+            Session::flash('pesan', 'Invalid email or password');
+            return redirect('login');
         }
+    }
+
+    public function logout(){
+        Session::flush();
+        return redirect(('login'));
     }
 }

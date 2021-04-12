@@ -14,7 +14,7 @@
         <form method="post" action="{{url('produk_store')}}" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="row mb-3">
-            <div class="col">
+                <div class="col">
                     <label class="form-label h6">Merchant ID</label>
                     <input type="text" class="form-control" placeholder="merchant ID" name="id_merchant">
                 </div>
@@ -46,9 +46,9 @@
                 <input type="file" class="form-control" placeholder="product picture" name="gambar">
             </div>
 
-            <button type="submit" class="btn btn-success">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-       
+
 
     </div>
 

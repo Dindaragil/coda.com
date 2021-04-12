@@ -5,7 +5,7 @@
 @section('container')
 
 <div class="container">
-    <div style="margin-top: 75px;">
+    <div style="margin-top: 75px; margin-bottom: 75px;">
         <div class="">
             <h2>Users</h2>
         </div>
@@ -15,7 +15,7 @@
         </div>
         @endif
         <div class="ml-auto mb-2">
-            <a href="user_create" class="btn btn-success">Add New</a>
+            <a href="user_create" class="btn btn-outline-primary">Add New</a>
         </div>
 
         <table class="table table-striped">
@@ -40,7 +40,7 @@
                             {{ csrf_field() }}
                             @method('delete')
                             <a href="{{url('user_edit', $us->id)}}" class="btn btn-sm btn-primary">Edit</a>
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you Sure?')">Delete</button>
+                            <button type="submit" class="btn btn-sm btn-outline-primary" onclick="return confirm('Are you Sure?')">Delete</button>
                         </form>
                     </td>
                 </tr>

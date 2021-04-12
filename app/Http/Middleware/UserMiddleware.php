@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Http\Middleware;
+
 use Closure;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
-
-class cek_login
+class UserMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,10 +14,10 @@ class cek_login
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle($request, Closure $next)
     {
-        if(Session::get('login_status')!=true){
-            return redirect('login');
+        if(Auth::user()->type != "user"){
+            return redirect()->to('logout');
         }
         return $next($request);
     }

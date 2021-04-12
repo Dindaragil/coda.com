@@ -6,7 +6,7 @@
 
 
 <div class="container">
-    <div style="margin-top: 75px;">
+    <div style="margin-top: 75px; margin-bottom: 75px;">
         <div class="col-xs-6">
             <h2>Merchants</h2>
         </div>
@@ -40,7 +40,7 @@
                             {{ csrf_field() }}
                             @method('delete')
                             <a href="{{url('merchant_edit', $mc->id)}}" class="btn btn-sm btn-primary">Edit</a>
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you Sure?')">Delete</button>
+                            <button type="submit" class="btn btn-sm btn-outline-primary" onclick="return confirm('Are you Sure?')">Delete</button>
                         </form>
                     </td>
                 </tr>

@@ -9,9 +9,10 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/3685b669fe.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <title>@yield('title')</title>
-
-    <!-- <style>
+<!--
+    <style>
     * {margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -19,39 +20,55 @@
     text-decoration: none;
     font-family: Arial, Helvetica, sans-serif;}
     body{
-        background: #f3f5f9;
+        background: #fafafa;
     }
-    .wrapper{
-        display: flex;
-        position: relative;
-    }
-    .wrapper .sidebar{
-        position: fixed;
-        width: 200px;
-        height: 100%;
-        background: #0d6efd;
-    }
+
     </style> -->
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 60px;">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="height: 70px; background-color: #01425e; margin-bottom: 150px;">
         <div class="container">
-            <a class="navbar-brand" href="#"><img src="{{url('../logo/codalogo.jpg')}}" style="height: 60px;"></a>
+            <a class="navbar-brand" href="{{url('/home')}}"><img src="{{url('../logo/codalogo.jpg')}}" style="height: 60px;"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="ml-auto" id="navbarNavAltMarkup">
                 <div class="navbar-nav ">
-                    <a class="nav-link" href="{{url('/home')}}">Home</a>
+
+                @if(Auth::user()->type == 'admin')
                     <a class="nav-link" href="{{url('/user')}}">Users</a>
                     <a class="nav-link" href="{{url('/owner')}}">Owners</a>
                     <a class="nav-link" href="{{url('/kategori')}}">Categories</a>
                     <a class="nav-link" href="{{url('/merchant')}}">Merchants</a>
-                    <a class="nav-link" href="{{url('/produk')}}">Products</a>
-                    <a class="nav-link" href="{{url('/logout')}}" onclick="return confirm('Are you Sure?')">Logout</a>
+                @endif
 
+                @if(Auth::user()->type == 'user')
+                    <!-- <a class="nav-link" href="{{url('/home')}}">Home</a> -->
+                    <a class="nav-link" href="{{url('/dashboard')}}">Dashboard</a>
+                @endif
+                @if(Auth::user()->type == 'owner')
+                    <!-- <a class="nav-link" href="{{url('/home')}}">Home</a> -->
+                    <a class="nav-link" href="{{url('/produk')}}">Products</a>
+                    <a class="nav-link" href="{{url('/kategori')}}">Categories</a>
+
+                @endif
+                <a class="nav-link" href="{{ route('logout') }}" onclick="return confirm('Are you Sure?')">Logout</a>
+
+<!-- <div class="btn-group">
+  <button type="button" class="btn btn-danger">Action</button>
+  <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="visually-hidden">Toggle Dropdown</span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="#">Action</a></li>
+    <li><a class="dropdown-item" href="#">Another action</a></li>
+    <li><a class="dropdown-item" href="#">Something else here</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="#">Separated link</a></li>
+  </ul>
+</div> -->
 
 
                 </div>

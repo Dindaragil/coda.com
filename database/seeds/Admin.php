@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class Admin extends Seeder
 {
@@ -12,10 +13,11 @@ class Admin extends Seeder
     public function run()
     {
         \App\User::create([
-            'id' => '1',
+            // 'id' => '',
             'nama_lengkap' => 'Elon Musk',
-            'email' => 'ceritanyainielon@musk.com',
-            'password' => md5('112233'),
+            'email' => 'inielon@musk.com',
+            // 'password' => md5('112233'),
+            'password' => Hash::make('112233'),
             'alamat' => 'mars',
             'type' => 'admin'
         ]);

@@ -37,18 +37,20 @@ class MerchantController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id)
+    public function store(Request $request)
     {
+        // dd($request);
         $validator = Validator::make($request->all(), [
             'id_user' => 'required',
             'nama' => 'required',
             'alamat' => 'required',
-            
+
         ]);
 
         if($validator->fails()){
             return redirect()->back()->withErrors($validator)->withInput($request->all);
         }
+
         $merchant = merchant::create($request->all());
         // $merchant->id_user = $this->user->id_user;
         $merchant->id_user = $request->id_user;

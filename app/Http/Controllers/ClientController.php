@@ -1,12 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\kategori;
-use Validator;
-use Illuminate\Http\Request;
 
-class KategoriController extends Controller
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+class ClientController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +20,14 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        $kategori  = kategori::all();
-        return view('kategori.index', compact('kategori'));
+        $produk = DB::table('produk')
+        ->select('produk.id', 'produk.nama as produk_nama', 'produk.deskripsi', 'produk.stok', 'produk.harga', 'produk.gambar', 'merchant.nama as merchant_nama', 'kategori.nama as kategori_nama')
+        ->join('kategori', 'kategori.id', '=', 'produk.id_kategori')
+        ->join('merchant', 'merchant.id', '=', 'produk.id_merchant')
+        ->get();
+return view('client.dashboard', compact('produk'));
+
+        return view('client.dashboard');
     }
 
     /**
@@ -25,7 +37,7 @@ class KategoriController extends Controller
      */
     public function create()
     {
-    return view('kategori.create');
+        //
     }
 
     /**
@@ -36,11 +48,8 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-
-        kategori::create($request->all());
-        return redirect('/kategori')->with('status', 'Successfully add a new category!');
-
-     }
+        //
+    }
 
     /**
      * Display the specified resource.
@@ -50,8 +59,7 @@ class KategoriController extends Controller
      */
     public function show($id)
     {
-        // $data = kategori::where('id',$id)->get();
-        // return response ($data);
+        //
     }
 
     /**
@@ -62,8 +70,7 @@ class KategoriController extends Controller
      */
     public function edit($id)
     {
-        $kategori = kategori::where('id', $id)->get();
-        return view('kategori.edit', compact('kategori'));
+        //
     }
 
     /**
@@ -73,19 +80,10 @@ class KategoriController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id){
-        $this->validate($request, [
-            'nama' => 'required'
-        ]);
-
-        $kategori = kategori::where('id', $id)->first();
-        $kategori->nama = $request->nama;
-        $kategori->save();
-
-        return redirect('/kategori')->with('status', 'Successfully change the category');
-}
-
-
+    public function update(Request $request, $id)
+    {
+        //
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -95,14 +93,6 @@ class KategoriController extends Controller
      */
     public function destroy($id)
     {
-        $kategori = kategori::where('id', $id)->first();
-
-        if($kategori != null){
-            $kategori->delete();
-
-            return redirect('/kategori')->with('status', 'Successfully deleted the category!');
-        }
-        return redirect('/kategori')->with('status', 'ID Not Found!');
-
+        //
     }
 }

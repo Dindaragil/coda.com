@@ -2,18 +2,30 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
+
+        // dd(request()->user()->type);
+        // dd(Auth::user()->original);
         $users  = User::where('type', '=', 'user')->get();
         // dd($users);
         return view('user.index', compact('users'));
@@ -32,11 +44,19 @@ class UserController extends Controller
    //register
     public function store(Request $request)
     {
+    //     $validator = Validator::make($request->all(), [
+    //     'nama' => 'required',
+    //     'telp' => 'required',
+    //     'email' => 'required|unique:Users',
+    //     'password' => 'required',
+    // ]);
+
+
         $users = new User();
         $users->nama_lengkap = $request->nama_lengkap;
         $users->alamat = $request->alamat;
         $users->email = $request->email;
-        $users->password = md5($request->password);
+        $users->password =  md5($request->password) ;
         $users->type = 'user';
         $users->save();
 

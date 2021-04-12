@@ -18,7 +18,7 @@ class AuthController extends Controller
         if (Auth::check()) {
             return redirect()->route('home');
         }
-        return view('login');
+        return view('auth.login');
     }
 
     public function login(Request $request)
@@ -46,7 +46,9 @@ class AuthController extends Controller
 
         Auth::attempt($data);
         if (Auth::check()) {
+            // Session::put('login_status', true);
             return redirect()->route('home');
+
         } else {
             Session::flash('error', 'Invalid Email or Password');
             return redirect()->route('login');
@@ -57,7 +59,7 @@ class AuthController extends Controller
 
     public function showFormRegister()
     {
-        return view('register');
+        return view('auth.register');
     }
 
     public function register(Request $request)

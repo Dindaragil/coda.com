@@ -11,6 +11,7 @@ use App\merchant;
 class User extends Authenticatable
 {
     use Notifiable;
+    
 
     protected $table = 'users';
 
@@ -49,7 +50,7 @@ class User extends Authenticatable
      */
     public $incrementing = false;
 
-   
+
 
 
 
