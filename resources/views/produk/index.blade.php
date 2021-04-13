@@ -15,9 +15,9 @@
             {{ session('status') }}
         </div>
         @endif
-        <div class="ml-auto mb-2">
+        <!-- <div class="ml-auto mb-2">
             <a href="produk_create" class="btn btn-outline-primary">Add New</a>
-        </div>
+        </div> -->
         <table class="table table-striped mt-3">
             <thead class="table-dark">
                 <tr>
@@ -40,18 +40,19 @@
                     <td scope="row">{{$loop->iteration}}</td>
                     <td>{{$pr->id}}</td>
                     <td>{{$pr->produk_nama}}</td>
-                    <td>{{$pr->deskripsi}}</td>
+                    <td><details><summary>Product Description</summary> <p>{{$pr->deskripsi}}</p></details></td>
                     <td>{{$pr->stok}}</td>
                     <td>{{$pr->harga}}</td>
                     <td><img src="/image/{{$pr->gambar}}" alt="Pict" width="100px"></td>
                     <td>{{$pr->kategori_nama}}</td>
                     <td>{{$pr->merchant_nama}}</td>
                     <td>
+                    <a href="{{url('produk_edit', $pr->id)}}" class="btn btn-sm btn-primary">Edit</a>
                         <form action="{{ url('produk_destroy', $pr->id )}}" method="post">
                             {{ csrf_field() }}
                             @method('delete')
-                            <a href="{{url('produk_edit', $pr->id)}}" class="btn btn-sm btn-primary">Edit</a>
-                            <button type="submit" class="btn btn-sm btn-outline-primary" onclick="return confirm('Are you Sure?')">Delete</button>
+
+<button type="submit" class="btn btn-sm btn-outline-primary mt-2" onclick="return confirm('Are you Sure?')">Delete</button>
                         </form>
                     </td>
                 </tr>

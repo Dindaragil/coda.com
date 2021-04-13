@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('nama_lengkap');
             $table->string('alamat');
-            $table->enum('type',['admin','merchant','user']);
+            $table->enum('type',['admin','owner','user']);
             $table->timestamps();
 
         });

@@ -16,7 +16,7 @@
             {{ csrf_field() }}
             <label class="form-label h6">Owner ID</label>
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="owner's id" name="id_user" value="{{$mc->id}}"  readonly>>
+                <input type="text" class="form-control" placeholder="owner's id" name="id_user" value="{{$mc->id}}"  readonly>
             </div>
             <label class="form-label h6">Merchant Name</label>
             <div class="input-group mb-3">

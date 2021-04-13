@@ -17,7 +17,7 @@ class TransaksiProduk extends Migration
             $table->id();
             $table->unsignedBigInteger('id_transaksi');
             $table->unsignedBigInteger('id_produk');
-            $table->unsignedBigInteger('kuantitas');
+            $table->unsignedBigInteger('qty');
             $table->unsignedBigInteger('subtotal');
             $table->unsignedBigInteger('harga');
             $table->timestamps();

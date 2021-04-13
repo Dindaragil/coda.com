@@ -13,7 +13,7 @@ class Admin extends Seeder
     public function run()
     {
         \App\User::create([
-            // 'id' => '',
+            'id' => '1',
             'nama_lengkap' => 'Elon Musk',
             'email' => 'inielon@musk.com',
             // 'password' => md5('112233'),

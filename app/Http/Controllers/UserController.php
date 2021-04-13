@@ -27,7 +27,6 @@ class UserController extends Controller
         // dd(request()->user()->type);
         // dd(Auth::user()->original);
         $users  = User::where('type', '=', 'user')->get();
-        // dd($users);
         return view('user.index', compact('users'));
     }
 

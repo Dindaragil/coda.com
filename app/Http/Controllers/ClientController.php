@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\produk;
 
 class ClientController extends Controller
 {
@@ -20,14 +21,19 @@ class ClientController extends Controller
      */
     public function index()
     {
+        $produk = produk::paginate(9);
+return view('client.dashboard', compact('produk'));
+    }
+
+    public function detail($id){
+        // $produk = produk::where('id', $id)->get();
         $produk = DB::table('produk')
         ->select('produk.id', 'produk.nama as produk_nama', 'produk.deskripsi', 'produk.stok', 'produk.harga', 'produk.gambar', 'merchant.nama as merchant_nama', 'kategori.nama as kategori_nama')
         ->join('kategori', 'kategori.id', '=', 'produk.id_kategori')
         ->join('merchant', 'merchant.id', '=', 'produk.id_merchant')
+        ->where('produk.id', $id)
         ->get();
-return view('client.dashboard', compact('produk'));
-
-        return view('client.dashboard');
+return view('client.detail', compact('produk'));
     }
 
     /**

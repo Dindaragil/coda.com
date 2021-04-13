@@ -36,9 +36,11 @@ class ProdukController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        return view('produk.create');
+        $produk = merchant::where('id', $id)->get();
+        $kategori = kategori::all();
+        return view('produk.create',compact('produk', 'kategori'));
     }
 
     /**
@@ -114,7 +116,9 @@ class ProdukController extends Controller
     public function edit($id)
     {
         $produk = produk::where('id', $id)->get();
-        return view('produk.edit', compact('produk'));
+        $merchant = merchant::where('id', $id)->get();
+        $kategori = kategori::all();
+        return view('produk.edit',compact('produk', 'merchant', 'kategori'));
     }
 
     /**

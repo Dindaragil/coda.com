@@ -8,8 +8,10 @@ use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\PagesController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\Transaksi_ProdukController;
+// use App\Http\Controllers\LoginController;
+// use App\Http\Controllers\RegisterController;
 
 
 /*
@@ -46,7 +48,7 @@ Route::group(['middleware' => 'auth'], function () {
     //produk
 
     Route::get('/produk', [ProdukController::class, 'index']);
-    Route::get('/produk_create', [ProdukController::class, 'create']);
+    Route::get('/produk_create/{id}', [ProdukController::class, 'create']);
     Route::post('/produk_store', [ProdukController::class, 'store']);
     Route::delete('produk_destroy/{id}', [ProdukController::class, 'destroy']);
     Route::get('/produk_edit/{id}', [ProdukController::class, 'edit']);
@@ -83,9 +85,32 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('merchant_destroy/{id}', [MerchantController::class, 'destroy']);
     Route::get('/merchant_edit/{id}', [MerchantController::class, 'edit']);
     Route::put('/merchant_update/{id}', [MerchantController::class, 'update']);
+    Route::get('/merchant_merchant', [MerchantController::class, 'myMerchant']);
 
     //client
     Route::get('/dashboard', [ClientController::class, 'index']);
+    Route::get('/detail/{id}', [ClientController::class, 'detail']);
+
+    // cart
+  Route::resource('cart', 'TransaksiController');
+  Route::patch('kosongkan/{id}', 'TransaksiController@kosongkan');
+
+  // cart detail
+  Route::resource('transaksiproduk', 'Transaksi_ProdukController');
+    // Route::get('/cart', [TransaksiController::class, 'cart']);
+    // Route::get('/checkout', [TransaksiController::class, 'checkout']);
+
+    // //transaksi
+    // Route::get('/transaksi', [TransaksiController::class, 'index']);
+    // Route::get('/transaksi_kosongkan', [TransaksiController::class, 'kosongkan']);
+
+    // //transaksi produk
+    // Route::post('/transaksiproduk_store', [Transaksi_ProdukController::class, 'store']);
+
+
+
+
+    //logout
     Route::get('logout', 'AuthController@logout')->name('logout');
 });
 

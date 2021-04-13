@@ -18,11 +18,11 @@
             <div class="row mb-3">
                 <div class="col">
                     <label class="form-label h6">Merchant ID</label>
-                    <input type="text" class="form-control" placeholder="merchant ID" name="id_merchant" value="{{$pr->id_merchant}}">
+                    <input type="text" class="form-control" placeholder="merchant ID" name="id_merchant" value="{{$pr->id_merchant}}" readonly>
                 </div>
                 <div class="col">
                     <label class="form-label h6">Category ID</label>
-                    <input type="text" class="form-control" placeholder="category ID" name="id_kategori" value="{{$pr->id_kategori}}">
+                    <input type="text" class="form-control" placeholder="category ID" name="id_kategori" value="{{$pr->id_kategori}}" readonly>
                 </div>
             </div>
             <label class="form-label h6">Product Name</label>

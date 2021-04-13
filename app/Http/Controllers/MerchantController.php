@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\merchant;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -68,6 +69,7 @@ class MerchantController extends Controller
      */
     public function show($id)
     {
+
     }
 
     /**
@@ -120,5 +122,10 @@ class MerchantController extends Controller
             return redirect('/merchant')->with('status', 'Successfully deleted the category!');
         }
         return redirect('/merchant')->with('status', 'ID Not Found!');
+    }
+
+    public function myMerchant() {
+        $merchant  = merchant::where('id_user', '=', Auth::user()->id)->get();
+        return view('merchant.merchant', compact('merchant'));
     }
 }

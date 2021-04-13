@@ -14,14 +14,23 @@
         <form method="post" action="{{url('produk_store')}}" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="row mb-3">
+                @foreach( $produk as $pr )
                 <div class="col">
                     <label class="form-label h6">Merchant ID</label>
-                    <input type="text" class="form-control" placeholder="merchant ID" name="id_merchant">
+                    <input type="text" class="form-control" placeholder="merchant ID" name="id_merchant" value="{{$pr->id}}" readonly>
                 </div>
+                @endforeach
+                @foreach( $kategori as $kg )
                 <div class="col">
-                    <label class="form-label h6">Category ID</label>
-                    <input type="text" class="form-control" placeholder="category ID" name="id_kategori">
+                    <label class="form-label h6">Category</label>
+                    <select class="form-select" name="id_kategori">
+                        <option selected>Select Category</option>
+                        <option value="{{$kg->id}}">{{$kg->nama}}</option>
+
+                    </select>
                 </div>
+                @endforeach
+
             </div>
             <label class="form-label h6">Product Name</label>
             <div class="input-group mb-3">
