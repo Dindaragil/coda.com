@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\merchant;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -57,8 +58,16 @@ class MerchantController extends Controller
         $merchant->id_user = $request->id_user;
         $merchant->nama = $request->nama;
         $merchant->alamat = $request->alamat;
-        $merchant->save();
-        return redirect('/merchant')->with('status', 'Successfully create a new merchant!');
+        $simpan = $merchant->save();
+
+        if($simpan){
+            Session::flash('success', 'Successfully create a new merchant!');
+            return redirect('/merchant');
+        } else {
+            Session::flash('errors', ['' => 'Failed to add a new user! Please try again later!']);
+            return redirect('/merchant_create');
+        }
+
     }
 
     /**
@@ -93,17 +102,30 @@ class MerchantController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
+
+        $validator = Validator::make($request->all(), [
             'nama' => 'required',
-            'alamat' => 'requiered'
+            'alamat' => 'required',
+
         ]);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput($request->all);
+        }
 
         $merchant = merchant::where('id', $id)->first();
         $merchant->nama = $request->nama;
         $merchant->alamat = $request->alamat;
-        $merchant->save();
+        $simpan = $merchant->save();
 
-        return redirect('/merchant')->with('status', 'Successfully change the category');
+        if($simpan){
+            Session::flash('success', 'Successfully updated a merchant!');
+            return redirect('/merchant');
+        } else {
+            Session::flash('errors', ['' => 'Failed to update user! Please try again later!']);
+            return redirect('/merchant_edit');
+        }
+
     }
 
     /**

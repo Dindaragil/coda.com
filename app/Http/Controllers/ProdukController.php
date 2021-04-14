@@ -52,36 +52,41 @@ class ProdukController extends Controller
     public function store(Request $request)
     {
         // dd($request->gambar);
-        $validator = Validator::make($request->all(), [
+        $rules = [
             'nama' => 'required',
             'deskripsi' => 'required',
-            'stok' => 'required',
-            'harga' => 'required',
+            'stok' => 'required|integer',
+            'harga' => 'required|integer',
             'id_kategori' => 'required',
             'id_merchant' => 'required',
-            'gambar' => 'required|mimes:jpeg, jpg, png, svg'
-        ]);
+            'gambar' => 'mimes:jpeg, jpg, png, svg'
+        ];
+        $messages = [
+            'nama.required' => 'Name is required',
+            'deskripsi.required' => 'Description is required',
+            'stok.required' => 'Stock is required',
+            'stok.integer' => 'Stock must be filled with number',
+            'harga.required' => 'Price is required',
+            'harga.integer' => 'Price must be filled with number',
+            'id_kategori.required' => 'Category is required',
+            'id_merchant.required' => 'required',
+            'gambar.mimes' => 'Sorry, the file format is not capable.'
+        ];
 
-        // // if($validator->fails()){
-        // //     return redirect()->back()->withErrors($validator)->withInput($request->all);
-        // // }
+        $validator = Validator::make($request->all(), $rules, $messages);
 
-        // $produk = produk::create($request->all());
-        // $produk->id_merchant = $request->id_merchant;
-        // $produk->nama = $request->nama;
-        // $produk->deskripsi = $request->deskripsi;
-        // $produk->stok = $request->stok;
-        // $produk->harga = $request->harga;
-        // $produk->id_kategori = $request->id_kategori;
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput($request->all);
+        }
 
 
-        // $produk->save();
-
-
-        $foto = $request->gambar->getClientOriginalName() . '-' . time()
-         . '.' . $request->gambar->extension();
-        $request->gambar->move(public_path('image'), $foto);
-
+        if($request->gambar) {
+            $foto = $request->gambar->getClientOriginalName() . '-' . time()
+            . '.' . $request->gambar->extension();
+           $request->gambar->move(public_path('image'), $foto);
+        } else {
+            $foto = null;
+        }
         produk::create([
             'id_merchant' => $request->id_merchant,
             'id_kategori' => $request->id_kategori,
@@ -130,18 +135,37 @@ class ProdukController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
+        $rules = [
             'nama' => 'required',
-            'stok' => 'required',
-            'harga' => 'required',
+            'deskripsi' => 'required',
+            'stok' => 'required|integer',
+            'harga' => 'required|integer',
+            'id_kategori' => 'required',
+            'id_merchant' => 'required',
+            'gambar' => 'mimes:jpeg, jpg, png, svg'
+        ];
+        $messages = [
+            'nama.required' => 'Name is required',
+            'deskripsi.required' => 'Description is required',
+            'stok.required' => 'Stock is required',
+            'stok.integer' => 'Stock must be filled with number',
+            'harga.required' => 'Price is required',
+            'harga.integer' => 'Price must be filled with number',
+            'id_kategori.required' => 'Category is required',
+            'id_merchant.required' => 'required',
+            'gambar.mimes' => 'Sorry, the file format is not capable.'
+        ];
 
-        ]);
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput($request->all);
+        }
 
         // if($validator->fails()){
         //     return redirect()->back()->withErrors($validator)->withInput($request->all);
         // }
 
-        $foto = null;
 
         $produk = produk::find($id);
 

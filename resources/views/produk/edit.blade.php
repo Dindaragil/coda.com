@@ -15,6 +15,19 @@
         <form method="post" action="{{url('/produk_update', $pr->id)}}" enctype="multipart/form-data">
             {{ csrf_field() }}
             @method('put')
+            @if(session('errors'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                Something it's wrong:
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
             <div class="row mb-3">
                 <div class="col">
                     <label class="form-label h6">Merchant ID</label>
@@ -31,7 +44,7 @@
             </div>
             <label class="form-label h6">Description</label>
             <div class="mb-3">
-                <textarea class="form-control" input type="text" rows="3" placeholder="product description" name="deskripsi" value="{{$pr->deskripsi}}"></textarea>
+                <textarea class="form-control" input type="text" rows="3" placeholder="product description" name="deskripsi" >{{$pr->deskripsi}}</textarea>
             </div>
             <div class="row mb-3">
                 <div class="col">

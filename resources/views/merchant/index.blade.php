@@ -11,9 +11,9 @@
             <h2>Merchants</h2>
         </div>
 
-        @if (session('status'))
+        @if (session('success'))
         <div class="alert alert-success">
-            {{ session('status') }}
+            {{ session('success') }}
         </div>
         @endif
         <table class="table table-striped mt-3">

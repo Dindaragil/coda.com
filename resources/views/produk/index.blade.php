@@ -10,9 +10,9 @@
             <h2>Products</h2>
         </div>
 
-        @if (session('status'))
+        @if (session('success'))
         <div class="alert alert-success">
-            {{ session('status') }}
+            {{ session('success') }}
         </div>
         @endif
         <!-- <div class="ml-auto mb-2">

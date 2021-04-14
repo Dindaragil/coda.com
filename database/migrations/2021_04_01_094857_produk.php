@@ -19,7 +19,7 @@ class Produk extends Migration
             $table->text('deskripsi');
             $table->unsignedBigInteger('stok');
             $table->unsignedBigInteger('harga');
-            $table->string('gambar');
+            $table->string('gambar')->nullable();
             $table->unsignedBigInteger('id_merchant');
             $table->unsignedBigInteger('id_kategori');
             $table->foreign('id_merchant')->references('id')->on('merchant');
