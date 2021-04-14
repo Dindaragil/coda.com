@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\User;
@@ -43,23 +44,46 @@ class UserController extends Controller
    //register
     public function store(Request $request)
     {
-    //     $validator = Validator::make($request->all(), [
-    //     'nama' => 'required',
-    //     'telp' => 'required',
-    //     'email' => 'required|unique:Users',
-    //     'password' => 'required',
-    // ]);
+
+        $rules = [
+            'nama_lengkap'          => 'required',
+            'email'                 => 'required|unique:users,email',
+            'password'              => 'required|confirmed',
+            'alamat'                => 'required',
+        ];
+
+        $messages = [
+            'nama_lengkap.required' => 'Full name is required!',
+            'email.required'        => 'Email is required!',
+            'email.unique'          => 'Email is already used!',
+            'password.required'     => 'Password is required!',
+            'password.confirmed'    => 'Password is not the same as confirmation password!',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput($request->all);
+        }
 
 
-        $users = new User();
-        $users->nama_lengkap = $request->nama_lengkap;
-        $users->alamat = $request->alamat;
-        $users->email = $request->email;
-        $users->password =  md5($request->password) ;
-        $users->type = 'user';
-        $users->save();
+    $users = new User;
+    $users ->nama_lengkap = ($request->nama_lengkap);
+    $users->email= strtolower($request->email);
+    $users->password = Hash::make($request->password);
+    $users ->alamat = ($request->alamat);
+    $users->type = 'user';
+    $simpan = $users->save();
 
-        return redirect('/user')->with('status', 'Successfully add a new user!');
+    if($simpan){
+        Session::flash('success', 'Successfully add a new user!');
+        return redirect('/user');
+    } else {
+        Session::flash('errors', ['' => 'Failed to add a new user! Please try again later!']);
+        return redirect('/user_create');
+    }
+
+        // return redirect('/user')->with('status', 'Successfully add a new user!');
     }
 
     /**
@@ -104,9 +128,15 @@ class UserController extends Controller
         $users->nama_lengkap = $request->nama_lengkap;
         $users->alamat = $request->alamat;
         $users->email = $request->email;
-        $users->save();
+        $simpan=$users->save();
 
-        return redirect('/user')->with('status', 'Successfully updated the user!');
+        if($simpan){
+            Session::flash('success', 'Successfully updated a user!');
+            return redirect('/user');
+        } else {
+            Session::flash('errors', ['' => 'Update failed! Please try again later!']);
+            return redirect('/user_edit/{id}');
+        }
     }
 
     /**

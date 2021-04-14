@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\kategori;
-use Validator;
+use Illuminate\Support\Facades\Session;
+// use Illuminate\Validation\Validator;
 use Illuminate\Http\Request;
 
 class KategoriController extends Controller
@@ -36,9 +37,23 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'nama' => 'required'
+        ]);
 
-        kategori::create($request->all());
-        return redirect('/kategori')->with('status', 'Successfully add a new category!');
+        $kategori = new kategori();
+        $kategori->nama = $request->nama;
+        $simpan = $kategori->save();
+
+        if($simpan){
+            Session::flash('success', 'Successfully add a new category!');
+            return redirect('/user');
+        } else {
+            Session::flash('errors', ['' => 'Failed to add a new category! Please try again later!']);
+            return redirect('/user_create');
+        }
+        // kategori::create($request->all());
+        // return redirect('/kategori')->with('status', 'Successfully add a new category!');
 
      }
 
@@ -80,7 +95,15 @@ class KategoriController extends Controller
 
         $kategori = kategori::where('id', $id)->first();
         $kategori->nama = $request->nama;
-        $kategori->save();
+        $simpan = $kategori->save();
+
+        if($simpan){
+            Session::flash('success', 'Successfully updated a user!');
+            return redirect('/user');
+        } else {
+            Session::flash('errors', ['' => 'Update failed! Please try again later!']);
+            return redirect('/user_edit/{id}');
+        }
 
         return redirect('/kategori')->with('status', 'Successfully change the category');
 }

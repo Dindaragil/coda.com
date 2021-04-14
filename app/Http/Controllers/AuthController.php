@@ -73,11 +73,12 @@ class AuthController extends Controller
         ];
 
         $messages = [
-            'name.required'         => 'Full name is required',
-            'email.required'        => 'Email is required',
-            'email.unique'          => 'Email is already used',
-            'password.required'     => 'Password is required',
-            'password.confirmed'    => 'Password is not the same as confirmation password '
+            'nama_lengkap.required' => 'Full name is required!',
+            'email.required'        => 'Email is required!',
+            'email.unique'          => 'Email is already used!',
+            'password.required'     => 'Password is required!',
+            'password.confirmed'    => 'Password is not the same as confirmation password!',
+            'type'                  => 'Please choose your role'
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);

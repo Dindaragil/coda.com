@@ -14,7 +14,7 @@
         <form method="post" action="{{url('kategori_store')}}">
             {{ csrf_field() }}
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Create a new one please" name="nama">
+                <input type="text" class="form-control" placeholder="Create a new one please" name="nama" required>
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>

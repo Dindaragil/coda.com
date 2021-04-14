@@ -69,7 +69,7 @@
                                 </label>
                             </div>
                             <select class="form-select form-select-lg mb-3" name="type" required>
-                                <option selected>Register as</option>
+                                <option selected disabled>Register as</option>
                                 <option value="user">User</option>
                                 <option value="owner">Owner</option>
                             </select> <br>

@@ -3,15 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use App\User;
 
 class OwnerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $owner  = User::where('type', '=', 'owner')->get();
@@ -36,15 +39,42 @@ class OwnerController extends Controller
      */
     public function store(Request $request)
     {
-        $owner = new User();
-        $owner->nama_lengkap = $request->nama_lengkap;
-        $owner->alamat = $request->alamat;
-        $owner->email = $request->email;
-        $owner->password = md5($request->password);
-        $owner->type = 'owner';
-        $owner->save();
+        $rules = [
+            'nama_lengkap'          => 'required',
+            'email'                 => 'required|unique:users,email',
+            'password'              => 'required|confirmed',
+            'alamat'                => 'required',
+        ];
 
-        return redirect('/owner')->with('status', 'Successfully add a new owner!');
+        $messages = [
+            'nama_lengkap.required' => 'Full name is required!',
+            'email.required'        => 'Email is required!',
+            'email.unique'          => 'Email is already used!',
+            'password.required'     => 'Password is required!',
+            'password.confirmed'    => 'Password is not the same as confirmation password!',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput($request->all);
+        }
+
+        $users = new User;
+        $users ->nama_lengkap = ($request->nama_lengkap);
+        $users->email= strtolower($request->email);
+        $users->password = Hash::make($request->password);
+        $users ->alamat = ($request->alamat);
+        $users->type = 'owner';
+        $simpan = $users->save();
+
+        if($simpan){
+            Session::flash('success', 'Successfully add a new owner!');
+            return redirect('/owner');
+        } else {
+            Session::flash('errors', ['' => 'Failed to add a new owner! Please try again later!']);
+            return redirect('/owner_create');
+        }
     }
 
     /**
@@ -89,9 +119,16 @@ class OwnerController extends Controller
         $owner->nama_lengkap = $request->nama_lengkap;
         $owner->alamat = $request->alamat;
         $owner->email = $request->email;
-        $owner->save();
+        $simpan = $owner->save();
 
-        return redirect('/owner')->with('status', 'Successfully updated the owner!');
+        if($simpan){
+            Session::flash('success', 'Successfully updated a user!');
+            return redirect('/owner');
+        } else {
+            Session::flash('errors', ['' => 'Update failed! Please try again later!']);
+            return redirect('/owner_edit/{id}');
+        }
+
     }
 
     /**
@@ -112,7 +149,7 @@ class OwnerController extends Controller
         return redirect('/owner')->with('status', 'ID Not Found!');
     }
 
-    
+
 
 
 

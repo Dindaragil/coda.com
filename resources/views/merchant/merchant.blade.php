@@ -34,12 +34,8 @@
                     <td>{{$mc->nama}}</td>
                     <td>{{$mc->alamat}}</td>
                     <td>
-                        <form action="{{ url('merchant_destroy', $mc->id )}}" method="post">
-                            {{ csrf_field() }}
-                            @method('delete')
-                            <a href="{{url('merchant_edit', $mc->id)}}" class="btn btn-sm btn-primary">Edit</a>
-                            <button type="submit" class="btn btn-sm btn-outline-primary" onclick="return confirm('Are you Sure?')">Delete</button>
-                            <a href="{{url('produk_create', $mc->id)}}" class="btn btn-sm btn-outline-dark">Add Product</a>
+
+                            <a href="{{url('produk_create', $mc->id)}}" class="btn btn-sm btn-primary">Add Product</a>
                         </form>
                     </td>
                 </tr>
