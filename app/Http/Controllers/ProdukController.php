@@ -143,14 +143,18 @@ class ProdukController extends Controller
 
         $foto = null;
 
+        $produk = produk::find($id);
+
         if($request->gambar) {
             $foto = $request->gambar->getClientOriginalName() . '-' . time()
             . '.' . $request->gambar->extension();
            $request->gambar->move(public_path('image'), $foto);
+        } else {
+            $foto = $produk->gambar;
         }
 
 
-       produk::find($id)->update([
+        $produk->update([
            'id_merchant' => $request->id_merchant,
            'id_kategori' => $request->id_kategori,
            'nama' => $request->nama,

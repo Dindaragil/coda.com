@@ -17,14 +17,14 @@ class Produk extends Migration
             $table->bigIncrements('id');
             $table->string('nama');
             $table->text('deskripsi');
-            $table->unsignedInteger('stok');
-            $table->unsignedInteger('harga');
+            $table->unsignedBigInteger('stok');
+            $table->unsignedBigInteger('harga');
             $table->string('gambar');
             $table->unsignedBigInteger('id_merchant');
             $table->unsignedBigInteger('id_kategori');
+            $table->foreign('id_merchant')->references('id')->on('merchant');
+            $table->foreign('id_kategori')->references('id')->on('kategori');
             $table->timestamps();
-
-
         });
     }
 

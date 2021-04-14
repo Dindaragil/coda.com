@@ -18,6 +18,7 @@ class Merchant extends Migration
             $table->string('nama');
             $table->string('alamat');
             $table->unsignedBigInteger('id_user');
+            $table->foreign('id_user')->references('id')->on('users');
             $table->timestamps();
 
         });

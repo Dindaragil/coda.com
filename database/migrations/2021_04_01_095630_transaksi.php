@@ -14,14 +14,14 @@ class Transaksi extends Migration
     public function up()
     {
         Schema::create('transaksi', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('id_user');
+            $table->bigIncrements('id');
+            // $table->unsignedBigInteger('id_user');
             $table->string('no_invoice');
             $table->date('tanggal');
             $table->string('status');
             $table->integer('subtotal');
-            $table->integer('subtotal');
             $table->integer('total');
+            $table->foreignId('id_user')->references('id')->on('users');
             $table->timestamps();
 
         });
