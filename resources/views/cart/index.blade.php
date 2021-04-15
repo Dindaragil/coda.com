@@ -15,16 +15,16 @@
                 <thead class="thead-dark">
                     <tr>
                         <th> </th>
-                        <th>No Invoice</th>
                         <th>Product</th>
                         <th>Price</th>
                         <th>Quantity</th>
-                        <th>Subtotal</th>
+                        <!-- <th>Subtotal</th> -->
                         <th> </th>
                     </tr>
                 </thead>
                 <tbody>
-                @foreach($itemcart->detail as $detail)
+                @foreach($itemcart as $itemcart)
+                <tr>
                     <td>
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
@@ -32,52 +32,25 @@
                             </label>
                         </div>
                     </td>
-                    <td>{{ $itemcart->no_invoice }}</td>
                     <!-- <td>
                         <img src="D:\Ibnu\Dignitas\startbootstrap-sb-admin-2-gh-pages\img\pen_STAR_maple_2021.png"
                             class="img-thumbnail" alt="...">
                     </td> -->
-                    <td>{{ $detail->produk->nama }}</td>
-                    <td>{{ number_format($detail->harga, 2) }}</td>
-                    <td>
-                    <div class="btn-group" role="group">
-                    <form action="{{ route('transaksiproduk.update',$detail->id) }}" method="post">
-                    @method('patch')
-                    @csrf()
-                      <input type="hidden" name="param" value="kurang">
-                      <button class="btn btn-primary btn-sm">
-                      -
-                      </button>
-                    </form>
-                    <button class="btn btn-outline-primary btn-sm" disabled="true">
-                    {{ number_format($detail->qty, 2) }}
-                    </button>
-                    <form action="{{ route('cartdetail.update',$detail->id) }}" method="post">
-                    @method('patch')
-                    @csrf()
-                      <input type="hidden" name="param" value="tambah">
-                      <button class="btn btn-primary btn-sm">
-                      +
-                      </button>
-                    </form>
-                  </div>
-                    </td>
-                    <td>{{ number_format($detail->subtotal, 2) }}</td>
-                    <td>
-                        <!-- <a href="#" class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> -->
-                        <form action="{{ route('cartdetail.destroy', $detail->id) }}" method="post" style="display:inline;">
-                  @csrf
-                  {{ method_field('delete') }}
-                  <button type="submit" class="btn btn-sm btn-danger mb-2">
-                  <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-                  </button>
-                </form>
-                    </td>
+                    <td>{{ $itemcart->produk_nama }}</td>
+                    <td>{{ number_format($itemcart->harga, 2) }}</td>
+                    <td>{{ $itemcart->qty }}</td>
+                    </tr>
+
+                    <!-- <div class="btn-group" role="group">
+
+                  </div> -->
+                   
+                    @endforeach
                 </tbody>
                 
             </table>
         </div>
-        <div class="row" style="margin-top: 10px;">
+        <!-- <div class="row" style="margin-top: 10px;">
             <div class="col-md-12">
                 <div class="card text-center">
                     <div class="card-header">
@@ -91,7 +64,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="row" style="margin-top: 25px;"></div>
     </div>
     <script src="./src/input-spinner.js"></script>

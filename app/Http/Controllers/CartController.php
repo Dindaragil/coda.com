@@ -4,20 +4,27 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Session;
 use App\Cart;
 use App\produk;
+use App\User;
 
 class CartController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+ 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
-        $cart = Cart::where('id', Auth::user()->id)->get();
-        return view('cart', compact('cart'));
+        $users = User::where('id', Auth::user()->id);
+        $itemcart = DB::table('cart')
+        ->select('produk.id', 'produk.nama as produk_nama', 'produk.harga', 'cart.qty')
+        ->join('produk', 'produk.id', '=', 'cart.id_produk')
+        ->get();
+        return view('cart.index', compact('itemcart'));
     }
 
     /**
@@ -27,8 +34,7 @@ class CartController extends Controller
      */
     public function create($id)
     {
-        $cart = produk::where('id', $id)->get();
-        return view('cart.create', compact('merchant'));
+        
     }
 
     /**
@@ -39,15 +45,30 @@ class CartController extends Controller
      */
     public function store(Request $request, $id)
     {
-        $produk = produk::where('id', $id)->get();
-
+        $produk = produk::where('id', $id)->first();
         if($request->qty > $produk->stok)
         {
-            return redirect('client.detail')->with('status', 'Your order exceeds the existing stock limit');
+            return redirect('detail/'.$id)->with('status', 'The order exceeds the existing stock limit');
         }
+      
+       $itemcart = Cart::create($request->all());
+       $itemcart-> id_user = $request->id_user;
+       $itemcart-> id_produk = $request->id_produk;
+       $itemcart-> qty = $request->qty;
+       $itemcart->save();
+    //    echo($itemcart);
+       return redirect('/cart')->with('status', 'Successfully create a new product!');
 
 
-        return view('cart.create', compact('merchant'));
+      
+    //    if($simpan){
+    //     Session::flash('success', 'Successfully add to cart');
+    //     return redirect('/cart');
+    // } else {
+    //     Session::flash('errors', ['' => 'Add to cart failed! Please try again later!']);
+    //     return redirect('/detail/{id}');
+    // }
+
     }
 
     /**
@@ -93,5 +114,11 @@ class CartController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function kosongkan($id){
+        $itemcart = Cart::findOrFail($id);
+        $itemcart->detail()->delete();
+        return back()->with('success', 'Cart berhasil dikosongkan');
     }
 }

@@ -31,19 +31,20 @@
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="height: 70px; background-color: #01425e; margin-bottom: 150px;">
-        <div class="container">
+        <div class="container-fluid">
             <a class="navbar-brand" href="{{url('/home')}}"><img src="{{url('../logo/codalogo.jpg')}}" style="height: 60px;"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="ml-auto" id="navbarNavAltMarkup">
+            <div id="navbarNavAltMarkup">
                 <div class="navbar-nav ">
 
                     @if(Auth::user()->type == 'admin')
                     <a class="nav-link" href="{{url('/user')}}">Users</a>
                     <a class="nav-link" href="{{url('/owner')}}">Owners</a>
-                    <a class="nav-link" href="{{url('/kategori')}}">Categories</a>
                     <a class="nav-link" href="{{url('/merchant')}}">Merchants</a>
+                    <a class="nav-link" href="{{url('/produk')}}">Products</a>
+                    <a class="nav-link" href="{{url('/kategori')}}">Categories</a>
                     @endif
 
                     @if(Auth::user()->type == 'user')

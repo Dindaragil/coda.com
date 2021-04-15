@@ -42,7 +42,7 @@
                     <td>{{$pr->produk_nama}}</td>
                     <td><details><summary>Product Description</summary> <p>{{$pr->deskripsi}}</p></details></td>
                     <td>{{$pr->stok}}</td>
-                    <td>{{$pr->harga}}</td>
+                    <td>Rp {{ number_format($pr->harga, 2) }},-</td>
                     <td><img src="/image/{{$pr->gambar}}" alt="Pict" width="100px"></td>
                     <td>{{$pr->kategori_nama}}</td>
                     <td>{{$pr->merchant_nama}}</td>

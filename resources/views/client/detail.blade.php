@@ -41,9 +41,17 @@
                 </div>
                 <hr>
                 <div class=".ml-auto">
-                <form action="{{ route('transaksiproduk.store') }}" method="POST">
+                @if (session('status'))
+        <div class="alert alert-danger">
+            {{ session('status') }}
+        </div>
+        @endif
+                <form action="{{url('/cart_store', $pr->id)}}" method="post">
               @csrf
-              <input type="hidden" name="id_produk" value={{$pr->id}}>
+              <input type="hidden" name="id_user" value="{{Auth::user()->id}}">
+              <input type="hidden" name="id_produk" value="{{$pr->id}}">
+              <input type="text" class="form-control mb-2" name="qty">
+              
               <button class="btn btn-block btn-primary" type="submit">
               <i class="fa fa-shopping-cart"></i> Tambahkan Ke Keranjang
               </button>
