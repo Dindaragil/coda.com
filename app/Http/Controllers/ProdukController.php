@@ -142,7 +142,7 @@ class ProdukController extends Controller
             'harga' => 'required|integer',
             'id_kategori' => 'required',
             'id_merchant' => 'required',
-            'gambar' => 'mimes:jpeg, jpg, png, svg'
+            'gambar' => 'mimes: png, jpeg, jpg, svg'
         ];
         $messages = [
             'nama.required' => 'Name is required',
