@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\merchant;
 use App\kategori;
 use App\produk;
+use App\Cart;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
@@ -59,7 +60,7 @@ class ProdukController extends Controller
             'harga' => 'required|integer',
             'id_kategori' => 'required',
             'id_merchant' => 'required',
-            'gambar' => 'mimes:jpeg, jpg, png, svg'
+            'gambar' => 'mimetypes:image/jpeg,image/png'
         ];
         $messages = [
             'nama.required' => 'Name is required',
@@ -142,7 +143,7 @@ class ProdukController extends Controller
             'harga' => 'required|integer',
             'id_kategori' => 'required',
             'id_merchant' => 'required',
-            'gambar' => 'mimes: png, jpeg, jpg, svg'
+            'gambar' => 'mimetypes:image/jpeg,image/png'
         ];
         $messages = [
             'nama.required' => 'Name is required',
@@ -209,5 +210,7 @@ class ProdukController extends Controller
         }
         return redirect('/produk')->with('status', 'ID Not Found!');
     }
+
+    
 
 }

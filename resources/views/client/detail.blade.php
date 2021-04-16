@@ -11,10 +11,10 @@
                 <img src="/image/{{$pr->gambar}}" width="500">
             </div>
             <div class="col-md-6">
-                <h4>{{$pr->produk_nama}}</h4>
+                <h2>{{$pr->produk_nama}}</h2>
                 <div class="row">
                     <div class="col-md-3">
-                        <p>Stock {{$pr->stok}}</p>
+                        <h6>Stock {{$pr->stok}}</h6>
                     </div>
                     <div class="col-md-3">
                         <span class="fa fa-star checked"></span>
@@ -26,9 +26,9 @@
                     <div class="col-md-3"></div>
                     <div class="col-md-3"></div>
                 </div>
-                <h3>
+                <h4>
                 Rp {{ number_format($pr->harga, 2) }},-
-                </h3>
+                </h4>
                 <hr>
                 <h5>Detail</h5>
                 <hr>
@@ -36,8 +36,8 @@
                     <p class="lh-lg">{{$pr->deskripsi}}</p>
                 </div>
                 <hr>
-                <div class="card text-white bg-secondary text-center">
-                    <h4>{{$pr->merchant_nama}}</h4>
+                <div class=" text-secondary  text-center">
+                    <h5>{{$pr->merchant_nama}}</h5>
                 </div>
                 <hr>
                 <div class=".ml-auto">
@@ -46,14 +46,13 @@
             {{ session('status') }}
         </div>
         @endif
-                <form action="{{url('/cart_store', $pr->id)}}" method="post">
+                <form action="{{url('/transaksi_add', $pr->id)}}" method="post">
               @csrf
-              <input type="hidden" name="id_user" value="{{Auth::user()->id}}">
-              <input type="hidden" name="id_produk" value="{{$pr->id}}">
-              <input type="text" class="form-control mb-2" name="qty">
+              
+              <input type="text" class="form-control mb-2" name="qty" placeholder="Wanna buy some?">
               
               <button class="btn btn-block btn-primary" type="submit">
-              <i class="fa fa-shopping-cart"></i> Tambahkan Ke Keranjang
+              <i class="fa fa-shopping-cart mr-2"></i> Add to Cart
               </button>
             </form>
                 <!-- <a href="{{url('cart')}}/{{Session::get('id')}}" class="btn btn-primary btn-lg " role="button" >Add to cart</a>

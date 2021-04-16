@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Session;
+use Illuminate\Support\Facades\Session;
 use App\Cart;
 use App\produk;
 use App\User;
@@ -50,24 +50,23 @@ class CartController extends Controller
         {
             return redirect('detail/'.$id)->with('status', 'The order exceeds the existing stock limit');
         }
-      
+
+    $subtotal = $produk->harga * $request->qty;
+      $cek_cart = Cart::where('id_produk', Session::get('id_produk'))->first();
+      if(empty($cek_cart)){
+
        $itemcart = Cart::create($request->all());
        $itemcart-> id_user = $request->id_user;
        $itemcart-> id_produk = $request->id_produk;
        $itemcart-> qty = $request->qty;
        $itemcart->save();
-    //    echo($itemcart);
+    } else {
+        
+    }
+
+
+
        return redirect('/cart')->with('status', 'Successfully create a new product!');
-
-
-      
-    //    if($simpan){
-    //     Session::flash('success', 'Successfully add to cart');
-    //     return redirect('/cart');
-    // } else {
-    //     Session::flash('errors', ['' => 'Add to cart failed! Please try again later!']);
-    //     return redirect('/detail/{id}');
-    // }
 
     }
 

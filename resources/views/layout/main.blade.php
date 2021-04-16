@@ -49,7 +49,8 @@
 
                     @if(Auth::user()->type == 'user')
                     <!-- <a class="nav-link" href="{{url('/home')}}">Home</a> -->
-                    <a class="nav-link" href="{{url('/dashboard')}}">Dashboard</a>
+                    <a class="nav-link" href="{{url('/cart')}}"><i class="fa fa-shopping-cart"></i></a>
+                    <a class="nav-link" href="{{url('/dashboard')}}">Products</a>
                     @endif
                     @if(Auth::user()->type == 'owner')
                     <!-- <a class="nav-link" href="{{url('/home')}}">Home</a> -->

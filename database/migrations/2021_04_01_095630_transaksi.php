@@ -16,12 +16,10 @@ class Transaksi extends Migration
         Schema::create('transaksi', function (Blueprint $table) {
             $table->bigIncrements('id');
             // $table->unsignedBigInteger('id_user');
-            $table->string('no_invoice');
             $table->date('tanggal');
             $table->string('status');
-            $table->integer('subtotal');
-            $table->integer('total');
-            $table->foreignId('id_user')->references('id')->on('users');
+            $table->unsignedBigInteger('total');
+            $table->foreignId('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
 
         });

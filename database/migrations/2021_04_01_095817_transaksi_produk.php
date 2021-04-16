@@ -15,11 +15,8 @@ class TransaksiProduk extends Migration
     {
         Schema::create('transaksi_produk', function (Blueprint $table) {
             $table->bigIncrements('id');
-            // $table->unsignedBigInteger('id_transaksi');
-            // $table->unsignedBigInteger('id_produk');
             $table->unsignedBigInteger('qty');
             $table->unsignedBigInteger('subtotal');
-            $table->unsignedBigInteger('harga');
             $table->foreignId('id_transaksi')->references('id')->on('transaksi');
             $table->foreignId('id_produk')->references('id')->on('produk');
             $table->timestamps();

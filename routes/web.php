@@ -80,9 +80,20 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [ClientController::class, 'index']);
     Route::get('/detail/{id}', [ClientController::class, 'detail']);
     
-    // cart
-    Route::get('/cart', [CartController::class, 'index']);
-    Route::post('/cart_store/{id}', [CartController::class, 'store']);
+    //transaksi
+    // Route::get('/transaksi/{id}', [TransaksiController::class, 'index']);
+    // Route::get('/transaksi', [TransaksiController::class, 'tampil_semua_transaksi']);
+    Route::post('/transaksi_add/{id}', [TransaksiController::class, 'transaksi']);
+    Route::get('/cart', [TransaksiController::class, 'index']);
+    Route::get('/konfirmasi_checkout', [TransaksiController::class, 'konfirmasi']);
+    Route::delete('/cart/delete/{id}', [TransaksiController::class, 'delete']);
+    
+    // //transaksi produk
+    // Route::post('/transaksiproduk_store', [Transaksi_ProdukController::class, 'store']);
+
+    // // cart
+    // Route::get('/cart', [CartController::class, 'index']);
+    // Route::post('/cart_store/{id}', [CartController::class, 'store']);
 
   // Route::patch('kosongkan/{id}', 'CartController@kosongkan');
 
@@ -91,12 +102,6 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::get('/cart', [TransaksiController::class, 'cart']);
     // Route::get('/checkout', [TransaksiController::class, 'checkout']);
 
-    // //transaksi
-    // Route::get('/transaksi', [TransaksiController::class, 'index']);
-    // Route::get('/transaksi_kosongkan', [TransaksiController::class, 'kosongkan']);
-
-    // //transaksi produk
-    // Route::post('/transaksiproduk_store', [Transaksi_ProdukController::class, 'store']);
 
 
 

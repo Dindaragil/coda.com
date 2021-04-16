@@ -5,7 +5,7 @@
 @section('container')
 
 <div class="container">
-        <div class="row" style="margin-top: 75px;">
+        <div class="row" style="margin-top: 150px;">
             <div class="col-xs-6">
                 <h2>Cart</h2>
             </div>
@@ -14,33 +14,34 @@
             <table class="table table">
                 <thead class="thead-dark">
                     <tr>
-                        <th> </th>
+                       
                         <th>Product</th>
                         <th>Price</th>
                         <th>Quantity</th>
-                        <!-- <th>Subtotal</th> -->
-                        <th> </th>
+                        <th>Subtotal</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                 @foreach($itemcart as $itemcart)
                 <tr>
-                    <td>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                            </label>
-                        </div>
-                    </td>
+                    
                     <!-- <td>
                         <img src="D:\Ibnu\Dignitas\startbootstrap-sb-admin-2-gh-pages\img\pen_STAR_maple_2021.png"
                             class="img-thumbnail" alt="...">
                     </td> -->
                     <td>{{ $itemcart->produk_nama }}</td>
-                    <td>{{ number_format($itemcart->harga, 2) }}</td>
+                    <td>Rp {{ number_format($itemcart->harga, 2) }},-</td>
                     <td>{{ $itemcart->qty }}</td>
-                    </tr>
-
+                    <td>{{ $itemcart->subtotal }}</td>
+                    <td>
+                    <form action="{{url('/cart/delete', $itemcart->id_transaksi_produk)}}" method="post">
+                            {{ csrf_field() }}
+                            @method('delete')
+                            <button type="submit"  class="btn btn-sm-outline-dark" onclick="return confirm('Are you Sure?')"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></button>
+                        </form>    
+                        </td>
+                </tr>
                     <!-- <div class="btn-group" role="group">
 
                   </div> -->
