@@ -24,6 +24,17 @@ class transaksi_produk extends Model
         return $this->belongsTo('App\produk', 'id_produk', 'id');
     }
 
+    public function updatedetail($detail, $qty, $harga)
+    {
+        $this->attributes['qty'] = $detail->qty + $qty;
+        $this->attributes['subtotal'] = $detail->subtotal + ($qty * $harga);
+        self::save();
+    }
 
-
+    public function updatetotal($detail, $subtotal) 
+    {
+        $this->attributes['subtotal'] = $detail->subtotal + $subtotal;
+        $this->attributes['total'] = $detail->total + $subtotal;
+        self::save();
+    }
 }

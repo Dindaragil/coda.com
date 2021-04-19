@@ -87,6 +87,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/cart', [TransaksiController::class, 'index']);
     Route::get('/konfirmasi_checkout', [TransaksiController::class, 'konfirmasi']);
     Route::delete('/cart/delete/{id}', [TransaksiController::class, 'delete']);
+    Route::resource('cart_update', 'Transaksi_ProdukController');
+    // Route::post('/transaksi_qty/{id}', [TransaksiController::class, 'tambahKurang']);
     
     // //transaksi produk
     // Route::post('/transaksiproduk_store', [Transaksi_ProdukController::class, 'store']);

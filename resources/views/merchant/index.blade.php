@@ -6,7 +6,7 @@
 
 
 <div class="container">
-    <div style="margin-top: 75px; margin-bottom: 75px;">
+    <div style="margin-top: 150px; margin-bottom: 150px;">
         <div class="col-xs-6">
             <h2>Merchants</h2>
         </div>

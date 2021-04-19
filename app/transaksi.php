@@ -25,5 +25,12 @@ class transaksi extends Model
         return $this->hasMany('App\transaksi_produk', 'id_transaksi', 'id');
     }
 
+    public function updatetotal($detail, $subtotal) 
+    {
+        $this->attributes['subtotal'] = $detail->subtotal + $subtotal;
+        $this->attributes['total'] = $detail->total + $subtotal;
+        self::save();
+    }
+
     
 }

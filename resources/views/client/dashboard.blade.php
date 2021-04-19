@@ -19,10 +19,11 @@
             @foreach( $produk as $pr )
                 <div class="col-md-3" style="margin-left: 10px; margin-top: 25px;">
                 <div class="card-group">
-                    <div class="card" style="width:18rem; height:20rem;">
+                    <div class="card" style="width:15rem;">
                         <img class="card-img-top" src="/image/{{$pr->gambar}}" alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title">{{$pr->nama}}</h5>
+                            <h4 class="card-title">{{$pr->nama}}</h4>
+                            <h6>Rp {{ number_format($pr->harga, 2) }},-</h6>
                             <p class="card-text"></p>
                             <form action="{{url('/transaksi_add', $pr->id)}}" method="post">
               @csrf

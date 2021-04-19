@@ -112,7 +112,6 @@ class TransaksiController extends Controller
     public function delete($id)
     {
         $detail = transaksi_produk::where('id', $id)->first();
-        var_dump($detail);
         $transaksi = transaksi::where('id', $detail->id_transaksi)->first();
         $transaksi->total = $transaksi->total - $detail->subtotal;
         $transaksi->update();
@@ -120,6 +119,8 @@ class TransaksiController extends Controller
         $detail->delete();
         return redirect('/dashboard')->with('status', 'Pesanan berhasil dihapus!');
     }
+
+    
 
     // public function tampil_transaksi($id)
     // {

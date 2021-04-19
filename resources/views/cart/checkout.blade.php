@@ -4,7 +4,7 @@
 
 @section('container')
 <div class="container">
-        <div class="row" style="margin-top: 75px;">
+        <div class="row" style="margin-top: 150px;">
             <div class="col-xs-6">
                 <h2>Check Out</h2>
             </div>

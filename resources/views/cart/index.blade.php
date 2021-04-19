@@ -32,7 +32,27 @@
                     </td> -->
                     <td>{{ $itemcart->produk_nama }}</td>
                     <td>Rp {{ number_format($itemcart->harga, 2) }},-</td>
-                    <td>{{ $itemcart->qty }}</td>
+                    <td><div class="btn-group" role="group">
+                    <form action="{{ route('cart_update.update', $itemcart->id_transaksi_produk) }}" method="post">
+                    @method('patch')
+                    @csrf()
+                      <input type="hidden" name="param" value="kurang">
+                      <button class="btn btn-primary btn-sm">
+                      -
+                      </button>
+                    </form>
+                    <button class="btn btn-outline-primary btn-sm" disabled="true">
+                    {{$itemcart->qty }}
+                    </button>
+                    <form action="{{ route('cart_update.update', $itemcart->id_transaksi_produk) }}" method="post">
+                    @method('patch')
+                    @csrf()
+                      <input type="hidden" name="param" value="tambah">
+                      <button class="btn btn-primary btn-sm">
+                      +
+                      </button>
+                    </form>
+                  </div></td>
                     <td>{{ $itemcart->subtotal }}</td>
                     <td>
                     <form action="{{url('/cart/delete', $itemcart->id_transaksi_produk)}}" method="post">
