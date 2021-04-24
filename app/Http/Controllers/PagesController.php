@@ -12,17 +12,6 @@ class PagesController extends Controller
 
     public function index()
     {
-        // $type = Auth::user()->type;
-        // if($type == "admin") {
-        //     return redirect('/user');
-        // } else if($type == "owner") {
-        //     return redirect('/product');
-        // } else if($type == "user") {
-        //     return redirect('/dashboard');
-        // } else {
-        //     return redirect('/logout');
-        // }
-
         return view('index');
     }
 

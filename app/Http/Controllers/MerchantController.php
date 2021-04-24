@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\merchant;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +15,7 @@ class MerchantController extends Controller
     {
         $this->middleware('auth');
     }
-
+    
     public function index()
     {
         $merchant = DB::table('merchant')

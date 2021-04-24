@@ -104,10 +104,6 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::get('/cart', [TransaksiController::class, 'cart']);
     // Route::get('/checkout', [TransaksiController::class, 'checkout']);
 
-
-
-
-
     //logout
     Route::get('logout', 'AuthController@logout')->name('logout');
 });
